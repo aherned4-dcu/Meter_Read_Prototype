@@ -21,7 +21,7 @@ The core functionalities provided by:
 -MPAndroid for visuals
 
 I used the following environment to develop this assignment: Minimum SDK 
-23, Android Studio 3.0 and my SDK installs were 27
+23, Android Studio 3.1.1 and my SDK installs were 27
 
 All icons used are either courtesy of www.flaticon.com or the Graphic 
 Design Team at SSE Airtricity

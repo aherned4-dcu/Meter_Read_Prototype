@@ -7,11 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-public class Confirm extends AppCompatActivity {
+public class Vis extends AppCompatActivity {
     TextView editTextReading, editTextDate, editTextMPRN;
-    public static final String MPRN_CON = "1234";
-    public static final String READING = "1234";
-    public static final String DATE = "2020-01-01";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

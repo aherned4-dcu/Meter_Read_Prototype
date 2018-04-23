@@ -24,6 +24,7 @@
         <activity android:name=".Ocr"></activity>
         <activity android:name=".Manual"></activity>
         <activity android:name=".Confirm"></activity>
+        <activity android:name=".Vis"></activity>
     </application>
     <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES"/>
 </manifest>
