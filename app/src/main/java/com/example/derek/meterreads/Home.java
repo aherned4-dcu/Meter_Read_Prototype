@@ -1,0 +1,56 @@
+package com.example.derek.meterreads;
+
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+public class Home extends AppCompatActivity {
+    EditText editTextMPRN;
+    private FirebaseAuth mAuth;
+    public static final String MPRN = "1234";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+        setContentView(R.layout.activity_home);
+        editTextMPRN = (EditText) findViewById(R.id.editTextMPRN);
+        mAuth = FirebaseAuth.getInstance();
+
+    }
+
+    public void openOCR (View v) {
+        String mprn = editTextMPRN.getText().toString().trim();
+        if (mprn.isEmpty()) {
+            editTextMPRN.setError("For fuck sake lad");
+            editTextMPRN.requestFocus();
+            return;
+        }
+        Intent ocrIntent = new Intent(this,Ocr.class);
+        startActivity(ocrIntent);
+    }
+
+    public void openMan (View v) {
+        String mprn = editTextMPRN.getText().toString().trim();
+        if (mprn.isEmpty()) {
+            editTextMPRN.setError("MPRN is required");
+            editTextMPRN.requestFocus();
+            return;
+        }
+        Intent manIntent = new Intent(this,Manual.class);
+        mprn = editTextMPRN.getText().toString();
+        manIntent.putExtra(MPRN,mprn);
+        startActivity(manIntent);
+    }
+
+    public void logOut(View v){
+        mAuth.signOut(); //End user session
+        finish();
+    }
+}

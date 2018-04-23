@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "563863820467",
+    "firebase_url": "https://meterreads-6165d.firebaseio.com",
+    "project_id": "meterreads-6165d",
+    "storage_bucket": "meterreads-6165d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563863820467:android:cfcddb6a310d60d0",
+        "android_client_info": {
+          "package_name": "com.example.derek.meterreads"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "563863820467-dcem4tbs1r7ienl8bdk6i6dvds5kkrd8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.derek.meterreads",
+            "certificate_hash": "599bc877cd649a864a54a6331cdfa24142f50d0c"
+          }
+        },
+        {
+          "client_id": "563863820467-l31otbia5moa4p0fph1njpt2aq7dn6tt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACR7hQpnthKammGUGKtEtKDJZairAcBs4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "563863820467-l31otbia5moa4p0fph1njpt2aq7dn6tt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
