@@ -49,5 +49,12 @@ public class DataBaseBuild extends SQLiteOpenHelper {
         return res;
     }
 
-
+    public boolean deleteData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_NAME, null,null);
+        if (result == -1)
+            return false;
+        else
+            return true;
+    }
 }

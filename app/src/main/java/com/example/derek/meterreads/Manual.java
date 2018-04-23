@@ -39,6 +39,10 @@ public class Manual extends AppCompatActivity {
         editTextDate = (EditText) findViewById(R.id.editTextDate);
         editTextDate.setText(today);
         editTextReading.requestFocus();
+        Intent intent=getIntent();
+        String mprn = intent.getStringExtra(MPRN_CON);
+        Toast.makeText(this, "................."+mprn,
+                Toast.LENGTH_SHORT).show();
     }
 
     public void submitMan(View view) {
@@ -65,7 +69,8 @@ public class Manual extends AppCompatActivity {
             editTextDate.requestFocus();
             return;
         }
-
+        Toast.makeText(this, "................."+mprn,
+                Toast.LENGTH_SHORT).show();
         Intent conIntent = new Intent (this,Confirm.class);
         conIntent.putExtra(MPRN_CON,mprn);
         conIntent.putExtra(READING,reading);
