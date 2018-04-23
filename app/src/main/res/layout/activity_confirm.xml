@@ -71,7 +71,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:background="@color/sseblue"
-        android:onClick="openHome"
+        android:onClick="openVis"
         android:text="Confirm"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"

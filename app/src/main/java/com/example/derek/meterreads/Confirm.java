@@ -39,4 +39,9 @@ public class Confirm extends AppCompatActivity {
         Intent homeIntent = new Intent(this,Home.class);
         startActivity(homeIntent);
     }
+
+    public void openVis (View v) {
+        Intent visIntent = new Intent(this,Vis.class);
+        startActivity(visIntent);
+    }
 }
