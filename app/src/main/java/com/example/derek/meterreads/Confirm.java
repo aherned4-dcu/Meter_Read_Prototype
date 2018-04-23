@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Confirm extends AppCompatActivity {
     TextView editTextReading, editTextDate, editTextMPRN;
@@ -25,14 +26,15 @@ public class Confirm extends AppCompatActivity {
         editTextDate =  findViewById(R.id.textDateCon);
         editTextMPRN = findViewById(R.id.textMprnCon);
 
-        Bundle bundle = getIntent().getExtras();
-        String mprn = bundle.getString("MPRN_CON");
-        String reading = bundle.getString("READING");
-        String date = bundle.getString("DATE");
+        Intent intent = getIntent();
+        String mprn = intent.getStringExtra(MPRN_CON);
+        String reading = intent.getStringExtra(READING);
+        String date = intent.getStringExtra(DATE);
 
-        editTextReading.setText("123456789");
-        editTextDate.setText("2018-04-22");
-        editTextMPRN.setText("987654321");
+        editTextReading.setText(reading);
+        editTextDate.setText(date);
+        editTextMPRN.setText(mprn);
+
     }
 
     public void openHome (View v) {

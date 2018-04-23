@@ -23,7 +23,8 @@ public class Manual extends AppCompatActivity {
     public static final String MPRN_CON = "1234";
     public static final String READING = "1234";
     public static final String DATE = "2020-01-01";
-    String today = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).format(new Date());
+
+    String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class Manual extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         setContentView(R.layout.activity_manual);
+
 
 
         editTextReading = (EditText) findViewById(R.id.editTextReading);
@@ -41,7 +43,7 @@ public class Manual extends AppCompatActivity {
 
     public void submitMan(View view) {
         Intent intent=getIntent();
-        String mprn = intent.getStringExtra(Home.MPRN);
+        String mprn = intent.getStringExtra(MPRN_CON);
         String reading = editTextReading.getText().toString().trim();
         String date = editTextDate.getText().toString().trim();
 
@@ -69,6 +71,7 @@ public class Manual extends AppCompatActivity {
         conIntent.putExtra(READING,reading);
         conIntent.putExtra(DATE,date);
         startActivity(conIntent);
+
 
     }
 
