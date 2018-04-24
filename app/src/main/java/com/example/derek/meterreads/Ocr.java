@@ -171,8 +171,8 @@ public class Ocr extends AppCompatActivity {
         conIntent.putExtra(READING,reading);
         conIntent.putExtra(DATE,today);
         startActivity(conIntent);
-        Toast.makeText(this, mprn+" "+reading+ " "+today,
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, mprn+" "+reading+ " "+today,
+        //        Toast.LENGTH_SHORT).show();
 
     }
 }

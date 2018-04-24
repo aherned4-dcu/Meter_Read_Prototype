@@ -37,8 +37,8 @@ public class Home extends AppCompatActivity {
         mprn = editTextMPRN.getText().toString();
         ocrIntent.putExtra(MPRN_CON,mprn);
         startActivity(ocrIntent);
-        Toast.makeText(this, mprn,
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, mprn,
+                //Toast.LENGTH_SHORT).show();
     }
 
     public void openMan (View v) {

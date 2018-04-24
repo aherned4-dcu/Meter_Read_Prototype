@@ -45,7 +45,13 @@ public class DataBaseBuild extends SQLiteOpenHelper {
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
+        Cursor res = db.rawQuery("select meter_table.READING,meter_table.DATE from " + TABLE_NAME, null);
+        return res;
+    }
+
+    public Cursor getDateReads(String mprn) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from meter_table where MPRN ="+mprn,null);;
         return res;
     }
 

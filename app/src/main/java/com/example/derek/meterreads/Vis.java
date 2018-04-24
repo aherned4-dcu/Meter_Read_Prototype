@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -134,7 +135,8 @@ public class Vis extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Cursor res = myDb.getAllData();
+                       Cursor res = myDb.getDateReads("12345672");
+                       // Cursor res = myDb.getAllData();
                         if(res.getCount() == 0) {
                             // show message
                             showMessage("Error","Nothing found");
@@ -143,9 +145,9 @@ public class Vis extends AppCompatActivity {
 
                         StringBuffer buffer = new StringBuffer();
                         while (res.moveToNext()) {
-                            buffer.append("MPRN :"+ res.getString(1)+"\n");
+                            buffer.append("READ :"+ res.getString(1)+"\n");
                             buffer.append("Date :"+ res.getString(2)+"\n");
-                            buffer.append("Read :"+ res.getString(3)+"\n\n");
+                            //buffer.append("Read :"+ res.getString(3)+"\n\n");
                         }
 
                         // Show all data
@@ -162,6 +164,9 @@ public class Vis extends AppCompatActivity {
         builder.setMessage(Message);
         builder.show();
     }
+
+
+
 
     }
 

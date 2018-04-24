@@ -36,18 +36,15 @@ public class Confirm extends AppCompatActivity {
         String date = intent.getStringExtra(Manual.DATE);
         Intent intent2=getIntent();
 
-        Toast.makeText(this, "................."+mprn,
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "................."+mprn,
+          //      Toast.LENGTH_SHORT).show();
         editTextReading.setText(reading);
         editTextDate.setText(date);
-        editTextMPRN.setText(mprn);
+        editTextMPRN.setText("123456789");
 
     }
 
-    public void openHome (View v) {
-        Intent homeIntent = new Intent(this,Home.class);
-        startActivity(homeIntent);
-    }
+
 
     public void openVis (View v) {
         Intent intent = getIntent();
