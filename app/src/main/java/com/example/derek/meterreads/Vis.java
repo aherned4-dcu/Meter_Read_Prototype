@@ -135,7 +135,7 @@ public class Vis extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       Cursor res = myDb.getDateReads("12345672");
+                       Cursor res = myDb.getDateReads("123456789");
                        // Cursor res = myDb.getAllData();
                         if(res.getCount() == 0) {
                             // show message
@@ -165,7 +165,10 @@ public class Vis extends AppCompatActivity {
         builder.show();
     }
 
-
+    public void openFinal (View v) {
+        Intent finalIntent = new Intent(this,Final.class);
+        startActivity(finalIntent);
+    }
 
 
     }

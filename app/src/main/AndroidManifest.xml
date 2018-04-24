@@ -25,6 +25,7 @@
         <activity android:name=".Manual"></activity>
         <activity android:name=".Confirm"></activity>
         <activity android:name=".Vis"></activity>
+        <activity android:name=".Final"></activity>
     </application>
     <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES"/>
 </manifest>
