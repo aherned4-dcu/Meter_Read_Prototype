@@ -20,9 +20,7 @@ import java.util.Locale;
 
 public class Manual extends AppCompatActivity {
     EditText editTextReading, editTextDate;
-    public static final String MPRN_CON = "1234";
-    public static final String READING = "1234";
-    public static final String DATE = "2020-01-01";
+
 
     String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
@@ -39,15 +37,15 @@ public class Manual extends AppCompatActivity {
         editTextDate = (EditText) findViewById(R.id.editTextDate);
         editTextDate.setText(today);
         editTextReading.requestFocus();
-        Intent intent=getIntent();
-        String mprn = intent.getStringExtra(MPRN_CON);
-        Toast.makeText(this, "................."+mprn,
-                Toast.LENGTH_SHORT).show();
+
+
+        //Toast.makeText(this, "................."+mprn,
+         //       Toast.LENGTH_SHORT).show();
     }
 
     public void submitMan(View view) {
         Intent intent=getIntent();
-        String mprn = intent.getStringExtra(MPRN_CON);
+        String mprn = intent.getStringExtra(Constants.MPRN_CON);
         String reading = editTextReading.getText().toString().trim();
         String date = editTextDate.getText().toString().trim();
 
@@ -69,12 +67,12 @@ public class Manual extends AppCompatActivity {
             editTextDate.requestFocus();
             return;
         }
-        Toast.makeText(this, "................."+mprn,
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "................."+mprn,
+        //        Toast.LENGTH_SHORT).show();
         Intent conIntent = new Intent (this,Confirm.class);
-        conIntent.putExtra(MPRN_CON,mprn);
-        conIntent.putExtra(READING,reading);
-        conIntent.putExtra(DATE,date);
+        conIntent.putExtra(Constants.MPRN_CON,mprn);
+        conIntent.putExtra(Constants.READING,reading);
+        conIntent.putExtra(Constants.DATE,date);
         startActivity(conIntent);
 
 

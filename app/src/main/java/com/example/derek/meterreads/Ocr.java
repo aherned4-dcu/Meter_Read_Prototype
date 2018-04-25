@@ -33,9 +33,6 @@ public class Ocr extends AppCompatActivity {
     CameraSource cameraSource;
     String output;
     final int RequestCameraPermissionID = 1001;
-    public static final String MPRN_CON = "1234";
-    public static final String READING = "1234";
-    public static final String DATE = "2020-01-01";
 
     String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
@@ -158,17 +155,17 @@ public class Ocr extends AppCompatActivity {
     public void submitOcr(View view) {
 
         Intent intent=getIntent();
-        String mprn = intent.getStringExtra(MPRN_CON);
+        String mprn = intent.getStringExtra(Constants.MPRN_CON);
         String reading = textView2.getText().toString().trim();
-        if (reading.matches("[a-zA-Z]+")) {
+        if (reading.matches("[\\d+]")) {
             Toast.makeText(Ocr.this, "Only capture numbers!!",
                     Toast.LENGTH_SHORT).show();
             return;
         }
         Intent conIntent = new Intent (this,Confirm.class);
-        conIntent.putExtra(MPRN_CON,mprn);
-        conIntent.putExtra(READING,reading);
-        conIntent.putExtra(DATE,today);
+        conIntent.putExtra(Constants.MPRN_CON,mprn);
+        conIntent.putExtra(Constants.READING,reading);
+        conIntent.putExtra(Constants.DATE,today);
         startActivity(conIntent);
         //Toast.makeText(this, mprn+" "+reading+ " "+today,
         //        Toast.LENGTH_SHORT).show();

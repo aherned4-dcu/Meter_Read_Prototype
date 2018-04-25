@@ -14,7 +14,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class Home extends AppCompatActivity {
     EditText editTextMPRN;
     private FirebaseAuth mAuth;
-    public static final String MPRN_CON = "123456789";
+    public static final String MPRN_CON = "MPRN_CON";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +53,8 @@ public class Home extends AppCompatActivity {
         mprn = editTextMPRN.getText().toString();
         manIntent.putExtra(MPRN_CON,mprn);
         startActivity(manIntent);
-        Toast.makeText(this, mprn,
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, mprn,
+          //      Toast.LENGTH_SHORT).show();
     }
 
     public void logOut(View v){

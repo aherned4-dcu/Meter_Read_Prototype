@@ -31,16 +31,13 @@ public class Confirm extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        String mprn = intent.getStringExtra(Manual.MPRN_CON);
-        String reading = intent.getStringExtra(Manual.READING);
-        String date = intent.getStringExtra(Manual.DATE);
-        Intent intent2=getIntent();
+        String mprn = intent.getStringExtra(Constants.MPRN_CON);
+        String reading = intent.getStringExtra(Constants.READING);
+        String date = intent.getStringExtra(Constants.DATE);
 
-        //Toast.makeText(this, "................."+mprn,
-          //      Toast.LENGTH_SHORT).show();
         editTextReading.setText(reading);
         editTextDate.setText(date);
-        editTextMPRN.setText("123456789");
+        editTextMPRN.setText(mprn);
 
     }
 

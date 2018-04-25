@@ -12,7 +12,7 @@ public class DataBaseBuild extends SQLiteOpenHelper {
     public static final String COL_1 = "EVENT_ID";
     public static final String COL_2 = "MPRN";
     public static final String COL_3 = "READING";
-    public static final String COL_4 = "DATE";
+    public static final String COL_4 = "READDATE";
 
 
     public DataBaseBuild(Context context) {
@@ -21,7 +21,7 @@ public class DataBaseBuild extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (EVENT_ID INTEGER PRIMARY KEY AUTOINCREMENT,MPRN STRING,READING STRING,DATE STRING)");
+        db.execSQL("create table " + TABLE_NAME + " (EVENT_ID INTEGER PRIMARY KEY AUTOINCREMENT,MPRN STRING,READING STRING,READDATE STRING)");
     }
 
     @Override
@@ -30,12 +30,12 @@ public class DataBaseBuild extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String MPRN, String READING, String DATE) {
+    public boolean insertData(String MPRN, String READING, String READDATE) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, MPRN);
         contentValues.put(COL_3, READING);
-        contentValues.put(COL_4, DATE);
+        contentValues.put(COL_4, READDATE);
         long result = db.insert(TABLE_NAME, null, contentValues);
         if (result == -1)
             return false;
@@ -45,13 +45,13 @@ public class DataBaseBuild extends SQLiteOpenHelper {
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select meter_table.READING,meter_table.DATE from " + TABLE_NAME, null);
+        Cursor res = db.rawQuery("select * from meter_table" , null);
         return res;
     }
 
     public Cursor getDateReads(String mprn) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from meter_table",null);;
+        Cursor res = db.rawQuery("select READING,READDATE from meter_table where MPRN="+mprn,null);;
         return res;
     }
 
