@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
@@ -160,7 +159,7 @@ public class Ocr extends AppCompatActivity {
 
         Intent intent=getIntent();
         String mprn = intent.getStringExtra(MPRN_CON);
-        String reading = textView.getText().toString().trim();
+        String reading = textView2.getText().toString().trim();
         if (reading.matches("[a-zA-Z]+")) {
             Toast.makeText(Ocr.this, "Only capture numbers!!",
                     Toast.LENGTH_SHORT).show();

@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Home extends AppCompatActivity {
     EditText editTextMPRN;
     private FirebaseAuth mAuth;
-    public static final String MPRN_CON = "1234";
+    public static final String MPRN_CON = "123456789";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

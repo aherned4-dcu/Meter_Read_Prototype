@@ -3,6 +3,7 @@ package com.example.derek.meterreads;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -20,6 +21,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 import java.util.ArrayList;
@@ -29,7 +31,10 @@ public class Vis extends AppCompatActivity {
     BarChart barchart;
     Button btnAddData,btnViewAll,btnDelete;
     DataBaseBuild myDb;
-
+    private FirebaseAuth mAuth;
+    public static final String MPRN_CON="123456789";
+    public static final String READING="54321";
+    public static final String DATE="2018-04-25";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,8 +150,8 @@ public class Vis extends AppCompatActivity {
 
                         StringBuffer buffer = new StringBuffer();
                         while (res.moveToNext()) {
-                            buffer.append("READ :"+ res.getString(1)+"\n");
-                            buffer.append("Date :"+ res.getString(2)+"\n");
+                            buffer.append("READ :"+ res.getString(2)+"\n");
+                            buffer.append("Date :"+ res.getString(3)+"\n");
                             //buffer.append("Read :"+ res.getString(3)+"\n\n");
                         }
 
@@ -168,8 +173,22 @@ public class Vis extends AppCompatActivity {
     public void openFinal (View v) {
         Intent finalIntent = new Intent(this,Final.class);
         startActivity(finalIntent);
+        //String email=mAuth.getCurrentUser().getEmail();
+        String meterTeam="Metersteam@sse.com";
+        String subject="Read Submission for MPRN:"+MPRN_CON;
+        String mprn=MPRN_CON;
+        String reading=READING;
+        String date=DATE;
+        String message = "Hi Team!\n A new meter read for MPRN:"+mprn+" has been submitted.\n\nREADING:"+reading+"\nDATE:"+date+"\n\nThanks";
+
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setType("message/rfc822");
+        emailIntent.setData(Uri.parse("mailto:"+meterTeam));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT,subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT,message);
+        startActivity(Intent.createChooser(emailIntent,"Send a mail to the meter team...."));
+
+
     }
-
-
     }
 

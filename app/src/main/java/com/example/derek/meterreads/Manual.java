@@ -118,7 +118,7 @@ public class Manual extends AppCompatActivity {
         if(permissionGranted){
             phoneCall();
         }else {
-            Toast.makeText(this, "You don't assign permission.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You didn't assign permission.", Toast.LENGTH_SHORT).show();
         }
     }
 

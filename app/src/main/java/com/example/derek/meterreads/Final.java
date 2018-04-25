@@ -22,19 +22,16 @@ public class Final extends AppCompatActivity {
         actionBar.hide();
         setContentView(R.layout.activity_final);
         textViewWeb = findViewById(R.id.link);
-
-
     }
 
     public void openWeb(View v) {
         textViewWeb.setMovementMethod(LinkMovementMethod.getInstance());
         String text = "<a href='www.sseairtricity.com'> sseairtricity.com </a>";
         textViewWeb.setText(Html.fromHtml(text));
-
     }
     /*@Override
     //https://stackoverflow.com/questions/17719634/how-to-exit-an-android-app-using-code
-    public void onBackPressed() {
+    public void onBackPressed(View v) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("Exit Application?");
         alertDialogBuilder
@@ -61,10 +58,10 @@ public class Final extends AppCompatActivity {
     }
 
 */
-    public void onPressed() {
-        //moveTaskToBack(true);
-        //android.os.Process.killProcess(android.os.Process.myPid());
-       // System.exit(1);
+    public void onPressed(View v) {
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
         Toast.makeText(Final.this,"Nothing to see here",Toast.LENGTH_LONG).show();
     }
 

@@ -63,7 +63,7 @@ public class Confirm extends AppCompatActivity {
     }
 
     public void openHome (View v) {
-        Intent finalIntent = new Intent(this, Final.class);
+        Intent finalIntent = new Intent(this, Home.class);
         startActivity(finalIntent);
 
     }
