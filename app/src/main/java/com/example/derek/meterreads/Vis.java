@@ -88,7 +88,7 @@ public class Vis extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = myDb.insertData("12345672", "123456", "2018-01-01" );
+                        boolean isInserted = myDb.insertData(Constants.MPRN_CON, Constants.READING, Constants.DATE );
                         if(isInserted == true)
                             Toast.makeText(Vis.this,"Data Inserted",Toast.LENGTH_LONG).show();
                         else
@@ -160,7 +160,7 @@ public class Vis extends AppCompatActivity {
 
         Intent intent=getIntent();
         String meterTeam="Metersteam@sse.com";
-        String subject="Read Submission for MPRN:"+intent.getStringExtra(Constants.MPRN_CON);
+        String subject="Read Submission for MPRN:123456789";//+intent.getStringExtra(Constants.MPRN_CON);
         String mprn=intent.getStringExtra(Constants.MPRN_CON);
         String reading=intent.getStringExtra(Constants.READING);
         String date=intent.getStringExtra(Constants.DATE);

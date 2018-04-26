@@ -51,7 +51,7 @@ public class DataBaseBuild extends SQLiteOpenHelper {
 
     public Cursor getDateReads(String mprn) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select READING,READDATE from meter_table where MPRN="+mprn,null);;
+        Cursor res = db.rawQuery("select sum(cast(READING as int)) as READING,substr( READDATE, 6, 2 ) as READDATE from meter_table group by substr( READDATE, 6, 2 ); where MPRN="+mprn,null);;
         return res;
     }
 

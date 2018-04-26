@@ -48,7 +48,7 @@ public class Confirm extends AppCompatActivity {
         String mprn = intent.getStringExtra("MPRN_CON");
         String reading = intent.getStringExtra("READING");
         String date = intent.getStringExtra("DATE");
-        boolean isInserted = myDb.insertData("1234356789",reading,"2018-01-01");
+        boolean isInserted = myDb.insertData(mprn,reading,date);
         //boolean isInserted=true;
         if (isInserted == true)
             Toast.makeText(this, "Data Inserted", Toast.LENGTH_LONG).show();
@@ -56,6 +56,9 @@ public class Confirm extends AppCompatActivity {
             Toast.makeText(this, "Data not Inserted", Toast.LENGTH_LONG).show();
 
         Intent visIntent = new Intent(this, Vis.class);
+        visIntent.putExtra(Constants.MPRN_CON,mprn);
+        visIntent.putExtra(Constants.READING,reading);
+        visIntent.putExtra(Constants.DATE,date);
         startActivity(visIntent);
     }
 
