@@ -1,6 +1,6 @@
 package com.example.derek.meterreads;
 
-import android.content.Context;
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -12,13 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.Manifest;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Manual extends AppCompatActivity {
+public class Manual extends BaseActivity {
     EditText editTextReading, editTextDate;
 
 
@@ -31,16 +30,11 @@ public class Manual extends AppCompatActivity {
         actionBar.hide();
         setContentView(R.layout.activity_manual);
 
-
-
         editTextReading = (EditText) findViewById(R.id.editTextReading);
         editTextDate = (EditText) findViewById(R.id.editTextDate);
         editTextDate.setText(today);
         editTextReading.requestFocus();
 
-
-        //Toast.makeText(this, "................."+mprn,
-         //       Toast.LENGTH_SHORT).show();
     }
 
     public void submitMan(View view) {
@@ -50,7 +44,7 @@ public class Manual extends AppCompatActivity {
         String date = editTextDate.getText().toString().trim();
 
         if (reading.isEmpty()) {
-            editTextReading.setError("Reading is required");
+            editTextReading.setError(getString(R.string.read_warning));
             editTextReading.requestFocus();
             return;
         }
@@ -67,8 +61,7 @@ public class Manual extends AppCompatActivity {
             editTextDate.requestFocus();
             return;
         }
-        //Toast.makeText(this, "................."+mprn,
-        //        Toast.LENGTH_SHORT).show();
+
         Intent conIntent = new Intent (this,Confirm.class);
         conIntent.putExtra(Constants.MPRN_CON,mprn);
         conIntent.putExtra(Constants.READING,reading);
@@ -79,56 +72,20 @@ public class Manual extends AppCompatActivity {
     }
 
     public void openOCR (View v) {
+        finish();
         Intent ocrIntent = new Intent(this,Ocr.class);
         startActivity(ocrIntent);
     }
     public void openHome (View v) {
+        finish();
         Intent homeIntent = new Intent(this,Home.class);
         startActivity(homeIntent);
     }
 
-    //https://stackoverflow.com/questions/4275678/how-to-make-a-phone-call-using-intent-in-android
-    private void onCallBtnClick(){
-        if (Build.VERSION.SDK_INT < 23) {
-            phoneCall();
-        }else {
-
-            if (ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-
-                phoneCall();
-            }else {
-                final String[] PERMISSIONS_STORAGE = {Manifest.permission.CALL_PHONE};
-                //Asking request Permissions
-                ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, 9);
-            }
-        }
+    public void onCallBtnClick(View v){
+        handlePhoneCall();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        boolean permissionGranted = false;
-        switch(requestCode){
-            case 9:
-                permissionGranted = grantResults[0]== PackageManager.PERMISSION_GRANTED;
-                break;
-        }
-        if(permissionGranted){
-            phoneCall();
-        }else {
-            Toast.makeText(this, "You didn't assign permission.", Toast.LENGTH_SHORT).show();
-        }
-    }
 
-    private void phoneCall(){
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:1800000888"));
-            this.startActivity(callIntent);
-        }else{
-            Toast.makeText(this, "You didn't assign permission.", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 }

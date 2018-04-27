@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SSE Airtricity Meter Reads</string>
+    <string name="read_warning">Reading is required</string>
 </resources>

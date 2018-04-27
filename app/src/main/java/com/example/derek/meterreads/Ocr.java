@@ -72,7 +72,7 @@ public class Ocr extends AppCompatActivity {
 
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
         if (!textRecognizer.isOperational()) {
-            Log.w("MainActivity", "Detector dependencies are not yet available");
+            Log.w("ocrActivity", "Detector dependencies are not yet available");
         } else {
 
             cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)

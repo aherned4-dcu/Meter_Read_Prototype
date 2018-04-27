@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/meter_logo"
@@ -19,13 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Home"></activity>
-        <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".Ocr"></activity>
-        <activity android:name=".Manual"></activity>
-        <activity android:name=".Confirm"></activity>
-        <activity android:name=".Vis"></activity>
-        <activity android:name=".Final"></activity>
+        <activity android:name=".Home" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".Ocr" />
+        <activity android:name=".Manual" />
+        <activity android:name=".Confirm" />
+        <activity android:name=".Vis" />
+        <activity android:name=".Final" />
+        <activity android:name=".BaseActivity"></activity>
     </application>
-    <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES"/>
+
 </manifest>

@@ -197,7 +197,7 @@ public class Vis extends AppCompatActivity {
             }
 
             int read_index=res.getColumnIndex("READING");
-            int readDate_index=res.getColumnIndex("READDATE");
+            int readDate_index=res.getColumnIndex("READ_DATE");
             barEntries.clear();
             while (res.moveToNext()) {
                 String col_read=res.getString(read_index);
@@ -212,15 +212,15 @@ public class Vis extends AppCompatActivity {
             super.onPostExecute(aVoid);
             if(aVoid){
                 ArrayList<BarEntry> barChartEntries = new ArrayList<>();
-                //for (Pair<String,String> item:barEntries){
-                 //   barChartEntries.add(new BarEntry(Float.parseFloat(item.first),Float.parseFloat(item.second)));
-                //}
-                barChartEntries.add(new BarEntry(1,564f));
+                for (Pair<String,String> item:barEntries){
+                    barChartEntries.add(new BarEntry(Float.parseFloat(item.second),Float.parseFloat(item.first)));
+                }
+                /*barChartEntries.add(new BarEntry(1,564f));
                 barChartEntries.add(new BarEntry(2,560f));
                 barChartEntries.add(new BarEntry(3,400f));
                 barChartEntries.add(new BarEntry(4,469f));
                 barChartEntries.add(new BarEntry(5,550f));
-                barChartEntries.add(new BarEntry(6,680f));
+                barChartEntries.add(new BarEntry(6,680f));*/
 
                 int color = ContextCompat.getColor(Vis.this, R.color.sseblue);
                 BarDataSet barDataSet = new BarDataSet(barChartEntries,"Monthly Energy Usage (kWh)");
