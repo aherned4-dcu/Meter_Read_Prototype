@@ -193,10 +193,10 @@ public class Vis extends AppCompatActivity {
             // Cursor res = myDb.getAllData();
             if(res.getCount() == 0) {
 
-                return true;
+                return false;
             }
 
-            int read_index=res.getColumnIndex("READ");
+            int read_index=res.getColumnIndex("READING");
             int readDate_index=res.getColumnIndex("READDATE");
             barEntries.clear();
             while (res.moveToNext()) {
@@ -204,7 +204,7 @@ public class Vis extends AppCompatActivity {
                 String col_date=res.getString(readDate_index);
                 barEntries.add(new Pair<String, String>(col_read,col_date));
             }
-            return false;
+            return true;
         }
 
         @Override
