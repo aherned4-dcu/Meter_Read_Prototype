@@ -6,10 +6,13 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 //https://stackoverflow.com/questions/4275678/how-to-make-a-phone-call-using-intent-in-android
 public class BaseActivity extends AppCompatActivity {
     @Override
@@ -21,7 +24,7 @@ public class BaseActivity extends AppCompatActivity {
                 if(permissionGranted){
                     phoneCall();
                 }else {
-                    Toast.makeText(this, "You didn't assign permission.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.Permission_declined, Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -32,10 +35,10 @@ public class BaseActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
             Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:1800000888"));
+            callIntent.setData(Uri.parse("tel:+1800000888"));
             this.startActivity(callIntent);
         }else{
-            Toast.makeText(this, "You didn't assign permission.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.Permission_declined, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -56,5 +59,35 @@ public class BaseActivity extends AppCompatActivity {
                 }
             }
 
+    }
+
+    public void goHome(){
+        finish();
+        Intent homeIntent = new Intent(this,Home.class);
+        startActivity(homeIntent);
+    }
+
+    public void goOCR(){
+        finish();
+        Intent ocrIntent = new Intent(this,Ocr.class);
+        startActivity(ocrIntent);
+    }
+
+    public String getDate(){
+        return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+    }
+
+    public void hideAction(){
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+    }
+
+    public void goToBrowser(String site){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        intent.setData(Uri.parse(site));
+        startActivity(intent);
     }
 }

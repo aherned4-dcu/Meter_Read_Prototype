@@ -1,37 +1,26 @@
 package com.example.derek.meterreads;
 
-import android.Manifest;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class Manual extends BaseActivity {
     EditText editTextReading, editTextDate;
 
 
-    String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+    String today = getDate();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        hideAction();
         setContentView(R.layout.activity_manual);
 
-        editTextReading = (EditText) findViewById(R.id.editTextReading);
-        editTextDate = (EditText) findViewById(R.id.editTextDate);
+        editTextReading = findViewById(R.id.editTextReading);
+        editTextDate = findViewById(R.id.editTextDate);
         editTextDate.setText(today);
         editTextReading.requestFocus();
 
@@ -51,13 +40,13 @@ public class Manual extends BaseActivity {
 
 
         if (date.isEmpty()) {
-            editTextDate.setError("date is required");
+            editTextDate.setError(getString(R.string.date_required));
             editTextDate.requestFocus();
             return;
         }
 
         if (editTextDate.length() != 10) {
-            editTextDate.setError("Enter a correct date");
+            editTextDate.setError(getString(R.string.enter_date));
             editTextDate.requestFocus();
             return;
         }
@@ -72,14 +61,10 @@ public class Manual extends BaseActivity {
     }
 
     public void openOCR (View v) {
-        finish();
-        Intent ocrIntent = new Intent(this,Ocr.class);
-        startActivity(ocrIntent);
+        goOCR();
     }
     public void openHome (View v) {
-        finish();
-        Intent homeIntent = new Intent(this,Home.class);
-        startActivity(homeIntent);
+        goHome();
     }
 
     public void onCallBtnClick(View v){

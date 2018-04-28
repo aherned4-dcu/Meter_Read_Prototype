@@ -1,20 +1,17 @@
 package com.example.derek.meterreads;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-public class Home extends AppCompatActivity {
+public class Home extends BaseActivity {
     EditText editTextMPRN;
     private FirebaseAuth mAuth;
-    public static final String MPRN_CON = "MPRN_CON";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +19,7 @@ public class Home extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         setContentView(R.layout.activity_home);
-        editTextMPRN = (EditText) findViewById(R.id.editTextMPRN);
+        editTextMPRN = findViewById(R.id.editTextMPRN);
         mAuth = FirebaseAuth.getInstance();
 
     }
@@ -30,35 +27,33 @@ public class Home extends AppCompatActivity {
     public void openOCR (View v) {
         String mprn = editTextMPRN.getText().toString().trim();
         if (mprn.isEmpty()) {
-            editTextMPRN.setError("MPRN is required");
+            editTextMPRN.setError(getString(R.string.mprn_error));
             editTextMPRN.requestFocus();
             return;
         }
         Intent ocrIntent = new Intent(this,Ocr.class);
         mprn = editTextMPRN.getText().toString();
-        ocrIntent.putExtra(MPRN_CON,mprn);
+        ocrIntent.putExtra(Constants.MPRN_CON,mprn);
         startActivity(ocrIntent);
-        //Toast.makeText(this, mprn,
-                //Toast.LENGTH_SHORT).show();
+
     }
 
     public void openMan (View v) {
         String mprn = editTextMPRN.getText().toString().trim();
         if (mprn.isEmpty()) {
-            editTextMPRN.setError("MPRN is required");
+            editTextMPRN.setError(getString(R.string.mprn_error));
             editTextMPRN.requestFocus();
             return;
         }
         Intent manIntent = new Intent(this,Manual.class);
         mprn = editTextMPRN.getText().toString();
-        manIntent.putExtra(MPRN_CON,mprn);
+        manIntent.putExtra(Constants.MPRN_CON,mprn);
         startActivity(manIntent);
-        //Toast.makeText(this, mprn,
-          //      Toast.LENGTH_SHORT).show();
+
     }
 
     public void logOut(View v){
-        mAuth.signOut(); //End user session
+        mAuth.signOut(); //End current user session
         finish();
     }
 }

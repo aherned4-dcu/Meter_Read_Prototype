@@ -1,17 +1,12 @@
 package com.example.derek.meterreads;
 
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Confirm extends AppCompatActivity {
+public class Confirm extends BaseActivity {
     TextView editTextReading, editTextDate, editTextMPRN;
 
 
@@ -20,8 +15,7 @@ public class Confirm extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        hideAction();
         setContentView(R.layout.activity_confirm);
 
         myDb = new DataBaseBuild(this);
@@ -49,11 +43,11 @@ public class Confirm extends AppCompatActivity {
         String reading = intent.getStringExtra("READING");
         String date = intent.getStringExtra("DATE");
         boolean isInserted = myDb.insertData(mprn,reading,date);
-        //boolean isInserted=true;
+
         if (isInserted == true)
-            Toast.makeText(this, "Data Inserted", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.data_inserted, Toast.LENGTH_LONG).show();
         else
-            Toast.makeText(this, "Data not Inserted", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.data_not_inserted, Toast.LENGTH_LONG).show();
 
         Intent visIntent = new Intent(this, Vis.class);
         visIntent.putExtra(Constants.MPRN_CON,mprn);
@@ -63,8 +57,7 @@ public class Confirm extends AppCompatActivity {
     }
 
     public void openHome (View v) {
-        Intent finalIntent = new Intent(this, Home.class);
-        startActivity(finalIntent);
+       goHome();
 
     }
 

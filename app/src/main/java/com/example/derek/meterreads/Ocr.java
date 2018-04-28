@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Ocr extends AppCompatActivity {
+public class Ocr extends BaseActivity {
 
     SurfaceView cameraView;
     TextView textView;
@@ -34,7 +34,7 @@ public class Ocr extends AppCompatActivity {
     String output;
     final int RequestCameraPermissionID = 1001;
 
-    String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+    String today = getDate();
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -59,8 +59,8 @@ public class Ocr extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideAction();
         setContentView(R.layout.activity_ocr);
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);//give me a back button
 
         cameraView = (SurfaceView) findViewById(R.id.surface_view);
         textView = (TextView) findViewById(R.id.text_view);
@@ -68,11 +68,9 @@ public class Ocr extends AppCompatActivity {
         btn =(Button) findViewById(R.id.takeReading);
         btnSub =(Button) findViewById(R.id.buttonSub);
 
-
-
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
         if (!textRecognizer.isOperational()) {
-            Log.w("ocrActivity", "Detector dependencies are not yet available");
+            Log.w("ocrActivity", getString(R.string.detector_dep));
         } else {
 
             cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
@@ -157,8 +155,8 @@ public class Ocr extends AppCompatActivity {
         Intent intent=getIntent();
         String mprn = intent.getStringExtra(Constants.MPRN_CON);
         String reading = textView2.getText().toString().trim();
-        if (reading.matches("[\\d+]")) {
-            Toast.makeText(Ocr.this, "Only capture numbers!!",
+        if (reading.matches("[a-zA-Z]+")) {
+            Toast.makeText(Ocr.this, R.string.num_warning,
                     Toast.LENGTH_SHORT).show();
             return;
         }
@@ -167,8 +165,7 @@ public class Ocr extends AppCompatActivity {
         conIntent.putExtra(Constants.READING,reading);
         conIntent.putExtra(Constants.DATE,today);
         startActivity(conIntent);
-        //Toast.makeText(this, mprn+" "+reading+ " "+today,
-        //        Toast.LENGTH_SHORT).show();
+
 
     }
 }
