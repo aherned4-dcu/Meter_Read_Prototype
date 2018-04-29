@@ -28,6 +28,7 @@ public class Vis extends BaseActivity {
     Button btnAddData,btnViewAll,btnDelete;
     DataBaseBuild myDb;
     String today=getDate();
+    public static final String TAG = Vis.class.getSimpleName(); //Log Tag
 
 
     private ArrayList<Pair<String,String>> barEntries = new ArrayList<>();
@@ -204,6 +205,8 @@ public class Vis extends BaseActivity {
                 for (Pair<String,String> item:barEntries){
                     barChartEntries.add(new BarEntry(Float.parseFloat(item.second),Float.parseFloat(item.first)));
                 }
+
+                //Uncomment the below for testing..
                 /*barChartEntries.add(new BarEntry(1,564f));
                 barChartEntries.add(new BarEntry(2,560f));
                 barChartEntries.add(new BarEntry(3,400f));

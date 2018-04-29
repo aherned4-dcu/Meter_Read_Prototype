@@ -57,6 +57,7 @@ public class Ocr extends BaseActivity {
     }
 
     @Override
+    //https://www.youtube.com/watch?v=xoTKpstv9f0
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideAction();

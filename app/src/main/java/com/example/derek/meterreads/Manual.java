@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 public class Manual extends BaseActivity {
     EditText editTextReading, editTextDate;
-
+    public static final String TAG = Manual.class.getSimpleName(); //Log Tag
 
     String today = getDate();
 
