@@ -1,4 +1,4 @@
-# https-github.com-aherned4-dcu-aherned4-assign5
+# https-github.com-aherned4-dcu-assign5
 
 Course : HDIP in SCi in Software Development Module 
 Title: Software Development A: Mobile Application Development Assignment 

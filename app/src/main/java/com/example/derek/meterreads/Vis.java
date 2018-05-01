@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -20,9 +21,18 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+
 import java.util.ArrayList;
 
+/**
+ * The Vis class creates the functionality for the visual and statistics activity
+ * Instantiates a DataBaseBuild instance.
+ * Instantiates a BarChart instance
+ */
 public class Vis extends BaseActivity {
+    /* Citation: Class contains code adapted from
+     * URL: https://github.com/PhilJay/MPAndroidChart
+     * Permission: MIT Licence Retrieved on:15th April 2018  */
     TextView editTextReading, editTextDate, editTextMPRN;
     BarChart barchart;
     Button btnAddData,btnViewAll,btnDelete;
@@ -31,8 +41,15 @@ public class Vis extends BaseActivity {
     public static final String TAG = Vis.class.getSimpleName(); //Log Tag
 
 
-    private ArrayList<Pair<String,String>> barEntries = new ArrayList<>();
+    private ArrayList<Pair<String,String>> barEntries = new ArrayList<>(); //to store bar chart entries
     @Override
+    /**
+     * The onCreate method set the content to activity_vis.
+     * Gets an instance of the DataBaseBuild and BarChart
+     * Formats the BarChart. Executes queries
+     *
+     * @param savedInstanceState
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
@@ -44,23 +61,32 @@ public class Vis extends BaseActivity {
         AddData();
         viewAll();
         DeleteData();
-        myDb = new DataBaseBuild(this);
+        myDb = new DataBaseBuild(this); //give me the data base
+
+        //create a bar chart and format it
         barchart = findViewById(R.id.chart1);
         barchart.setDrawBarShadow(false);
         barchart.setPinchZoom(false);
         barchart.setDescription(null);
         barchart.setDrawGridBackground(false);
-        String mprn=getIntent().getStringExtra(Constants.MPRN_CON);
-        new ReadData().execute(mprn);
+
+        String mprn=getIntent().getStringExtra(Constants.MPRN_CON); //get the MPRN for SQL query
+        new ReadData().execute(mprn); //execute the query
 
 
     }
 
+    /**
+     * A method to return to Home.java
+     * @param v
+     */
     public void openHome (View v) {
-        Intent homeIntent = new Intent(this,Home.class);
-        startActivity(homeIntent);
+        goHome();
     }
 
+    /**
+     *
+     */
     public class MyXAxisValueFormatter implements IAxisValueFormatter {
 
         private String[] mValues;
@@ -76,6 +102,9 @@ public class Vis extends BaseActivity {
 
     }
 
+    /**
+     * A method to insert mock data into meter_table once the add data button is pressed
+     */
     public  void AddData() {
         btnAddData.setOnClickListener(
                 new View.OnClickListener() {
@@ -90,7 +119,9 @@ public class Vis extends BaseActivity {
                 }
         );
     }
-
+    /**
+     * A method to delete data from meter_table once the delete data button is pressed
+     */
     public  void DeleteData() {
         btnDelete.setOnClickListener(
                 new View.OnClickListener() {
@@ -106,7 +137,9 @@ public class Vis extends BaseActivity {
                 }
         );
     }
-
+    /**
+     * A method to select all data from meter_table once the show all data button is pressed
+     */
     public void viewAll() {
         btnViewAll.setOnClickListener(
                 new View.OnClickListener() {
@@ -139,6 +172,12 @@ public class Vis extends BaseActivity {
         );
     }
 
+    /**
+     * A method to show a message
+     *
+     * @param title
+     * @param Message
+     */
     public void showMessage(String title,String Message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
@@ -147,15 +186,19 @@ public class Vis extends BaseActivity {
         builder.show();
     }
 
+    /**
+     * A method to call an implicit intent for an email app. Email is populated with captured data
+     * @param v
+     */
     public void openFinal (View v) {
 
         Intent intent=getIntent();
-        String meterTeam=getString(R.string.team_email);
-        String subject=getString(R.string.sub_email)+Constants.MPRN_CON;
-        String mprn=intent.getStringExtra(Constants.MPRN_CON);
-        String reading=intent.getStringExtra(Constants.READING);
-        String date=intent.getStringExtra(Constants.DATE);
-        String message = getString(R.string.email_body1)+mprn+"\n"+getString(R.string.email_body2)+reading+"\n"+getString(R.string.email_body3)+date+"\n"+getString(R.string.email_body4);
+        String meterTeam=getString(R.string.team_email); //send it to the Meter Read Team
+        String mprn=intent.getStringExtra(Constants.MPRN_CON); //get the MPRN
+        String subject=getString(R.string.sub_email)+mprn; //set the subject
+        String reading=intent.getStringExtra(Constants.READING); //get the reading
+        String date=intent.getStringExtra(Constants.DATE); //get the date
+        String message = getString(R.string.email_body1)+mprn+"\n"+getString(R.string.email_body2)+reading+"\n"+getString(R.string.email_body3)+date+"\n"+getString(R.string.email_body4); //for the body
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.setType("message/rfc822");
         emailIntent.setData(Uri.parse("mailto:"+meterTeam));
@@ -166,7 +209,7 @@ public class Vis extends BaseActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) { //start final activity if email is sent
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1001 && resultCode==RESULT_OK){
             Intent finalIntent = new Intent(this,Final.class);
@@ -174,35 +217,41 @@ public class Vis extends BaseActivity {
         }
     }
 
+    /**
+     * Get the SQL query results cursor and map the columns to the value of bar entries as String Pairs
+     */
     class ReadData extends AsyncTask<String,Void,Boolean>{
 
         @Override
         protected Boolean doInBackground(String... strings) {
-            String mprn=strings[0];
-            Cursor res = myDb.getDateReads(mprn);
+            String mprn=strings[0]; //user MPRN
+            Cursor res = myDb.getDateReads(mprn); //get aggregated data for the user MPRN
 
             if(res.getCount() == 0) {
 
                 return false;
             }
 
-            int read_index=res.getColumnIndex("READING");
-            int readDate_index=res.getColumnIndex("READ_DATE");
+            int read_index=res.getColumnIndex("READING");//get the column position
+            int readDate_index=res.getColumnIndex("READ_DATE");//get the column position
             barEntries.clear();
             while (res.moveToNext()) {
-                String col_read=res.getString(read_index);
-                String col_date=res.getString(readDate_index);
+                String col_read=res.getString(read_index); //give me readings
+                String col_date=res.getString(readDate_index); //give me dates
                 barEntries.add(new Pair<String, String>(col_read,col_date));
             }
             return true;
         }
 
         @Override
+        /**
+         * Create the bar chart entries by parsing bar entries from string to float and then maps the floats to descriptive months to be used for x-axis
+         */
         protected void onPostExecute(Boolean aVoid) {
             super.onPostExecute(aVoid);
             if(aVoid){
-                ArrayList<BarEntry> barChartEntries = new ArrayList<>();
-                for (Pair<String,String> item:barEntries){
+                ArrayList<BarEntry> barChartEntries = new ArrayList<>(); //store the entries
+                for (Pair<String,String> item:barEntries){ //build the bar chart
                     barChartEntries.add(new BarEntry(Float.parseFloat(item.second),Float.parseFloat(item.first)));
                 }
 
@@ -220,10 +269,11 @@ public class Vis extends BaseActivity {
 
                 BarData data = new BarData(barDataSet);
 
-                barchart.setData(data);
+                barchart.setData(data); //set the data
 
 
-                XAxis xAxis = barchart.getXAxis();
+                XAxis xAxis = barchart.getXAxis(); //create an xaxis
+                // map bar chart entries to months strings
                 String[] months = new String[]{getString(R.string.month_zero),
                         getString(R.string.jan),
                         getString(R.string.feb),

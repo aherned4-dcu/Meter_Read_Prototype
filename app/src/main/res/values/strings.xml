@@ -47,4 +47,6 @@
     <string name="email_required">Email is required</string>
     <string name="data_added">data added</string>
     <string name="data_not_added">data not added</string>
+    <string name="signin_success">signInWithEmail:success</string>
+    <string name="signin_fail">signInWithEmail:failure</string>
 </resources>

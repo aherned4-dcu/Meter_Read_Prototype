@@ -9,19 +9,38 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * The SignUpActivity Class creates the functionality for the registration process using Firebase
+ *
+ * @link {@link SignUpActivity}
+ *
+ * @author – Derek Aherne
+ * @version – 25/04/2018
+ *
+ */
 public class SignUpActivity extends BaseActivity implements View.OnClickListener {
-
+    /* Citation: Class contains code adapted from
+     * URL: https://github.com/firebase/quickstart-android/tree/master/auth
+     * Permission: MIT Licence Retrieved on:15th April 2018  */
     ProgressBar progressBar;
     EditText editTextEmail, editTextPassword;
     public static final String TAG = SignUpActivity.class.getSimpleName(); //Log Tag
     private FirebaseAuth mAuth;
 
     @Override
+    /**
+     * The onCreate method set the content to activity_signup.
+     * Instantiates an instance of Firebase
+     * Sets on Click Listeners for buttons
+     *
+     * @param savedInstanceState
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideAction();
@@ -37,6 +56,9 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.textViewLogin).setOnClickListener(this);
     }
 
+    /**
+     * A method to valid user input and register a user through Firebase
+     */
     private void registerUser() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -92,11 +114,11 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.buttonSignUp:
+            case R.id.buttonSignUp: //if signup button is pressed then register
                 registerUser();
                 break;
 
-            case R.id.textViewLogin:
+            case R.id.textViewLogin: //if login textView is pressed then start login activity
 
                 startActivity(new Intent(this, MainActivity.class));
                 finish();

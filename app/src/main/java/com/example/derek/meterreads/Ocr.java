@@ -1,10 +1,9 @@
 package com.example.derek.meterreads;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -12,18 +11,26 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
+import java.io.IOException;
+/**
+ *
+ * The Ocr class creates the functionality of the OCR activity screen.
+ *
+ *
+ * @link {@link MainActivity}
+ *
+ * @author – Derek Aherne
+ * @version – 25/04/2018
+ */
 public class Ocr extends BaseActivity {
 
     SurfaceView cameraView;
@@ -33,9 +40,16 @@ public class Ocr extends BaseActivity {
     CameraSource cameraSource;
     String output;
     final int RequestCameraPermissionID = 1001;
-
+    public static final String TAG = Ocr.class.getSimpleName(); //Log Tag
     String today = getDate();
 
+    /**
+     * A method to get permission to use the camera
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -57,21 +71,30 @@ public class Ocr extends BaseActivity {
     }
 
     @Override
-    //https://www.youtube.com/watch?v=xoTKpstv9f0
+    /**
+     * The onCreate method set the content to activity_ocr.
+     * Instantiates a TextRecognizer object to capture and concatenate
+     * text block through a surface view
+     *
+     * @param savedInstanceState
+     */
     protected void onCreate(Bundle savedInstanceState) {
+        /* Citation: Method contains code adapted from
+         * URL: https://github.com/googlesamples/android-vision.git
+         * Permission: MIT Licence Retrieved on:15th March 2018  */
         super.onCreate(savedInstanceState);
         hideAction();
         setContentView(R.layout.activity_ocr);
 
-        cameraView = (SurfaceView) findViewById(R.id.surface_view);
-        textView = (TextView) findViewById(R.id.text_view);
-        textView2 = (TextView) findViewById(R.id.textView);
-        btn =(Button) findViewById(R.id.takeReading);
-        btnSub =(Button) findViewById(R.id.buttonSub);
+        cameraView = findViewById(R.id.surface_view);
+        textView = findViewById(R.id.text_view);
+        textView2 = findViewById(R.id.textView);
+        btn =findViewById(R.id.takeReading);
+        btnSub =findViewById(R.id.buttonSub);
 
-        TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+        TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build(); //Google Vision
         if (!textRecognizer.isOperational()) {
-            Log.w("ocrActivity", getString(R.string.detector_dep));
+            Log.w(TAG, getString(R.string.detector_dep));
         } else {
 
             cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
@@ -82,7 +105,7 @@ public class Ocr extends BaseActivity {
                     .build();
             cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
                 @Override
-                public void surfaceCreated(SurfaceHolder surfaceHolder) {
+                public void surfaceCreated(SurfaceHolder surfaceHolder) { //check for camera permissions
 
                     try {
                         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -116,7 +139,7 @@ public class Ocr extends BaseActivity {
                 }
 
                 @Override
-                public void receiveDetections(Detector.Detections<TextBlock> detections) {
+                public void receiveDetections(Detector.Detections<TextBlock> detections) { //capture text blocks
 
                     final SparseArray<TextBlock> items = detections.getDetectedItems();
                     if(items.size() != 0)
@@ -132,7 +155,7 @@ public class Ocr extends BaseActivity {
                                     stringBuilder.append("\n");
                                 }
                                 output=stringBuilder.toString();
-                                textView.setText(stringBuilder.toString());
+                                textView.setText(stringBuilder.toString()); //show the text being captured in real time
                             }
                         });
                     }
@@ -144,27 +167,32 @@ public class Ocr extends BaseActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView2.setText(output);
+                textView2.setText(output); //set the captured text to the screen
             }
         } );
 
 
     }
 
+    /**
+     * A method that passes bundles and validates captured text from the TextRecognizer instance
+     * An explicit intent starts Confirm.java
+     * @param view
+     */
     public void submitOcr(View view) {
 
         Intent intent=getIntent();
-        String mprn = intent.getStringExtra(Constants.MPRN_CON);
+        String mprn = intent.getStringExtra(Constants.MPRN_CON); //get the MPRN input
         String reading = textView2.getText().toString().trim();
-        if (reading.matches("[a-zA-Z]+")) {
+        if (reading.matches("[a-zA-Z]+")) { //only continue if we capture numbers
             Toast.makeText(Ocr.this, R.string.num_warning,
                     Toast.LENGTH_SHORT).show();
             return;
         }
         Intent conIntent = new Intent (this,Confirm.class);
-        conIntent.putExtra(Constants.MPRN_CON,mprn);
-        conIntent.putExtra(Constants.READING,reading);
-        conIntent.putExtra(Constants.DATE,today);
+        conIntent.putExtra(Constants.MPRN_CON,mprn); //pass the data
+        conIntent.putExtra(Constants.READING,reading); //pass the data
+        conIntent.putExtra(Constants.DATE,today); //pass the data
         startActivity(conIntent);
 
 

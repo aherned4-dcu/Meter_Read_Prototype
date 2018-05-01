@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Home extends BaseActivity {
     EditText editTextMPRN;
     private FirebaseAuth mAuth;
+    public static final String TAG = Home.class.getSimpleName(); //Log Tag
 
     /**
      * The onCreate method hides the action bar, sets the content to activity_home and instantiates an instance of Firebase

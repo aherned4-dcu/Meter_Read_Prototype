@@ -24,9 +24,10 @@ public class Final extends BaseActivity {
      *
      * The onCreate method hides the action bar and sets the content to activity_final
      *
-     * @author – Derek Aherne
+     *
      * @version – 25/04/2018
      * @param – Bundle savedInstanceState
+     * @author – Derek Aherne
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
