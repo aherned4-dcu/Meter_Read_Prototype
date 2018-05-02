@@ -178,6 +178,7 @@ public class Ocr extends BaseActivity {
      * A method that passes bundles and validates captured text from the TextRecognizer instance
      * An explicit intent starts Confirm.java
      * @param view
+     *
      */
     public void submitOcr(View view) {
 
