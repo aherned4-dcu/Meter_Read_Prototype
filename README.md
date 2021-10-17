@@ -1,4 +1,4 @@
-# https-github.com-aherned4-dcu-Meter_Read_Prototype
+# Meter_Read_Prototype
 
 A proof of concept for an OCR app to read meter readings for a utility company. 
 The app that incorporates Optical Character Recognition (OCR) to recognise text characters.
